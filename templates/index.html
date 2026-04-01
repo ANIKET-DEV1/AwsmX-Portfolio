@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ portfolio.name }} | Portfolio</title>
+  <meta name="description" content="{{ portfolio.tagline }}" />
+  <meta name="theme-color" content="#0a0a08" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <!-- ── Page Loader ───────────────────────────────────── -->
+  <div class="page-loader" id="pageLoader" aria-hidden="true">
+    <div class="loader-core">
+      <span class="loader-ring"></span>
+      <span class="loader-dot"></span>
+    </div>
+    <p>Loading portfolio...</p>
+  </div>
+
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- ── Header ────────────────────────────────────────── -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav container">
+
+      <a href="#home" class="brand">AwsmX</a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="nav-right">
+        <!-- Theme toggle pill -->
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
+          <span class="toggle-track">
+            <span class="toggle-knob">
+              <!-- Moon icon (dark mode) -->
+              <svg class="knob-icon knob-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <!-- Sun icon (light mode) -->
+              <svg class="knob-icon knob-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"/>
+                <line x1="12" y1="2"  x2="12" y2="5"/>
+                <line x1="12" y1="19" x2="12" y2="22"/>
+                <line x1="2"  y1="12" x2="5"  y2="12"/>
+                <line x1="19" y1="12" x2="22" y2="12"/>
+                <line x1="4.93" y1="4.93"  x2="7.05" y2="7.05"/>
+                <line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/>
+                <line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/>
+                <line x1="16.95" y1="7.05"  x2="19.07" y2="4.93"/>
+              </svg>
+            </span>
+            <!-- Stars (dark track decoration) -->
+            <span class="toggle-stars" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+          </span>
+        </button>
+
+        <!-- Hamburger -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ── Hero -->
+    <section id="home" class="hero container">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Welcome to Aniket's portfolio</span>
+        <h1>{{ portfolio.role }}</h1>
+        <p>
+          {{ portfolio.tagline }} Based in {{ portfolio.location }}, I focus on
+          building practical ML projects and clean full-stack experiences with a modern UI.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">Explore Work</a>
+          <a href="{{ url_for('static', filename='Aniket Resume.pdf') }}" class="btn btn-secondary" download>Download CV</a>
+        </div>
+
+        <div class="highlight-strip">
+          {% for item in portfolio.highlights %}
+          <span class="highlight-chip">{{ item }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="profile-shell">
+          <div class="image-ring"></div>
+          <img src="{{ url_for('static', filename=portfolio.profile_image) }}" alt="{{ portfolio.name }}" loading="lazy" />
+        </div>
+        <div class="floating-panel">
+          <span>Currently pursuing</span>
+          <strong>{{ portfolio.education.degree }}</strong>
+          <p>{{ portfolio.education.college }} · {{ portfolio.education.year }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section container">
+      <div class="section-heading reveal">
+        <span>About</span>
+        <h2>Clean thinking, practical building, and strong fundamentals.</h2>
+      </div>
+      <div class="info-stack">
+        <div class="about-layout">
+          <article class="about-card reveal">
+            <p>
+              I am {{ portfolio.name }}, an aspiring Machine Learning Engineer and Full-Stack Developer
+              with a strong foundation in Python, analytics, and modern web development.
+            </p>
+            <p>
+              I enjoy transforming data into insights and ideas into smooth digital products using Flask,
+              Django, and a clean front-end workflow.
+            </p>
+          </article>
+          <article class="info-card reveal">
+            <h3>Education</h3>
+            <p>{{ portfolio.education.degree }}</p>
+            <p>{{ portfolio.education.college }}</p>
+            <p>{{ portfolio.education.year }}</p>
+          </article>
+        </div>
+        <article class="info-card-2 reveal">
+          <h3>Quick Stats</h3>
+          <div class="stats-row">
+            {% for stat in portfolio.stats %}
+            <div class="stat-pill">
+              <strong>{{ stat.value }}</strong>
+              <span>{{ stat.label }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── Skills ────────────────────────────────────────── -->
+    <section id="skills" class="section container">
+      <div class="section-heading reveal">
+        <span>Skills</span>
+        <h2>Tools I use to ship thoughtful products.</h2>
+      </div>
+      <div class="skills-cloud reveal">
+        {% for skill in portfolio.skills %}
+        <span class="skill-pill">{{ skill }}</span>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- ── Projects ──────────────────────────────────────── -->
+    <section id="projects" class="section container">
+      <div class="section-heading reveal">
+        <span>Projects</span>
+        <h2>Selected work with real use cases and polished delivery.</h2>
+      </div>
+
+      <div class="project-carousel reveal">
+        <button type="button" class="project-side-btn project-side-btn--prev" id="projectPrev" aria-label="Previous projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+
+        <div class="project-slider-shell">
+          <div class="project-grid project-slider" id="projectSlider">
+            {% for project in portfolio.projects %}
+            <article class="project-card reveal" style="transition-delay: {{ loop.index0 * 120 }}ms;">
+              <div class="project-card-top">
+                <span class="project-index">0{{ loop.index }}</span>
+                <span class="project-status">Featured</span>
+              </div>
+              <div class="project-card-body">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+                <ul class="project-feature-list">
+                  {% for feature in project.features %}
+                  <li>{{ feature }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="project-card-footer">
+                <div class="project-tags">
+                  {% for tech in project.stack %}
+                  <span>{{ tech }}</span>
+                  {% endfor %}
+                </div>
+                <a href="{{ project.link }}" {% if project.link.startswith('http') %}target="_blank" rel="noopener noreferrer"{% endif %} class="btn btn-primary project-link">View Project ↗</a>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </div>
+
+        <button type="button" class="project-side-btn project-side-btn--next" id="projectNext" aria-label="Next projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+
+        <div class="project-carousel-controls">
+          <button type="button" class="project-side-btn project-side-btn--prev-mobile" id="projectPrevMobile" aria-label="Previous projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="project-side-btn project-side-btn--next-mobile" id="projectNextMobile" aria-label="Next projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact ───────────────────────────────────────── -->
+    <section id="contact" class="section container">
+      <div class="section-heading reveal">
+        <span>Contact</span>
+        <h2>Let's connect in a clean and simple way.</h2>
+      </div>
+
+      <div class="contact-layout reveal">
+        <div class="contact-card contact-main">
+          <span class="section-kicker">Open for opportunities</span>
+          <h2>Have an internship, project, or collaboration in mind?</h2>
+          <p>Reach out at <a href="mailto:{{ portfolio.email }}">{{ portfolio.email }}</a> and I'll be happy to connect with you.</p>
+          <div class="contact-meta">
+            <div class="contact-meta-item">
+              <small>Email</small>
+              <strong>{{ portfolio.email }}</strong>
+            </div>
+            <div class="contact-meta-item">
+              <small>Location</small>
+              <strong>{{ portfolio.location }}</strong>
+            </div>
+          </div>
+          <div class="contact-actions">
+            <a href="mailto:{{ portfolio.email }}" class="btn btn-primary contact-btn">
+              <span class="btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+              </span>
+              <span>Email Me</span>
+            </a>
+            <a href="#projects" class="btn btn-secondary contact-btn">
+              <span>View Projects</span>
+              <span class="btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="contact-card contact-side">
+          <h3>Find me online</h3>
+          <p>My coding and professional profiles in one simple block layout.</p>
+          <div class="profile-blocks">
+            <a href="{{ portfolio.links.github }}"     target="_blank" rel="noopener noreferrer" class="profile-block"><strong>GitHub</strong></a>
+            <a href="{{ portfolio.links.linkedin }}"   target="_blank" rel="noopener noreferrer" class="profile-block"><strong>LinkedIn</strong></a>
+            <a href="{{ portfolio.links.hackerrank }}" target="_blank" rel="noopener noreferrer" class="profile-block"><strong>HackerRank</strong></a>
+            <a href="{{ portfolio.links.leetcode }}"   target="_blank" rel="noopener noreferrer" class="profile-block"><strong>LeetCode</strong></a>
+            <a href="{{ portfolio.links.kaggle }}"     target="_blank" rel="noopener noreferrer" class="profile-block"><strong>Kaggle</strong></a>
+          </div>
+          <div class="icon-find">
+            <a href="{{ portfolio.links.github }}"     target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+            <a href="{{ portfolio.links.linkedin }}"   target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="{{ portfolio.links.hackerrank }}" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="HackerRank"><i class="fab fa-hackerrank" aria-hidden="true"></i></a>
+            <a href="{{ portfolio.links.leetcode }}"   target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LeetCode"><i class="fas fa-code" aria-hidden="true"></i></a>
+            <a href="{{ portfolio.links.kaggle }}"     target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Kaggle"><i class="fab fa-kaggle" aria-hidden="true"></i></a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer container">
+    <p>© {{ year }} {{ portfolio.name }} · AwsmX</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
