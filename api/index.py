@@ -99,7 +99,7 @@ portfolio = {
     "education": {
         "degree": "B.Tech in Artificial Intelligence & Data Science",
         "college": "Thakur College of Engineering and Technology",
-        "year": "2024 – Present",
+        "year": "2024 – Present"
     },
 
     "links": {
@@ -107,7 +107,7 @@ portfolio = {
         "linkedin": "https://www.linkedin.com/in/aniket-gupta-57378b326/",
         "hackerrank": "https://www.hackerrank.com/profile/ag9326107",
         "leetcode": "https://leetcode.com/u/AwsmX/",
-        "kaggle": "https://www.kaggle.com/awesomeaniket",
+        "kaggle": "https://www.kaggle.com/awesomeaniket"
     }
 }
 
