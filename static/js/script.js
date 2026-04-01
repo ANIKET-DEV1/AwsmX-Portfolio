@@ -17,9 +17,6 @@ const projectNextMob  = document.getElementById('projectNextMobile');
 let lastScrollY = 0;
 let ticking     = false;
 
-/* ══════════════════════════════════════════════════════════
-   THEME TOGGLE
-══════════════════════════════════════════════════════════ */
 const THEME_KEY = 'awsmx-theme';
 
 function applyTheme(isLight) {

@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='templates',static_folder='static')
 
 portfolio = {
     "name": "Aniket Gupta",
@@ -107,14 +107,9 @@ portfolio = {
     }
 }
 
-@app.route("/")
-def home():
-    return render_template(
-        "index.html",
-        portfolio=portfolio,
-        year=datetime.now().year,
-    )
+@app.route('/')
+def index():
+    return render_template('index.html',portfolio=portfolio,year=datetime.now().year)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+app.debug=True
